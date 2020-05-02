@@ -38,14 +38,6 @@ public class Parking {
         return Boolean.toString(occupied);
     }
 
-    public String getParkingStatus() {
-        if (occupied) {
-            return "Occupied";
-        } else {
-            return "Empty";
-        }
-    }
-
     public String getParkingName() {
         return name;
     }
