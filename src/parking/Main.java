@@ -60,6 +60,14 @@ public class Main {
     }
 
     public static void selectParking(int i) {
+        System.out.format("%3d%40s%25s%15s", i, parkingList.get(i).getParkingName(), parkingList.get(i).getParkingVehicle().getVehicleModel(), parkingList.get(i).getParkingPlate());
+    }
+    
+    public static void listParking() {
+        System.out.format("%3d%40s%25s%15s", "id", "name", "vehicle", "plate");
+        for (int i = 0; i < parkingList.size(); i++) {
+            selectParking(i);
+        }
         System.out.println("");
     }
     
