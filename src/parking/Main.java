@@ -52,7 +52,7 @@ public class Main {
     }
 
     public static void addParkingSlot() {
-        Parking park = new Parking(null, vehicleList.get(0), null);
+        Parking park = new Parking("", vehicleList.get(0), "");
         parkingList.add(park);
     }
 
@@ -72,7 +72,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Added dummy empty vehicle.");
-        addVehicle("Empty", null, null);
+        addVehicle("Empty", "", "");
 
         // CMD Bootleg 1.0 by Davey
         // Initial Creation
@@ -152,8 +152,8 @@ public class Main {
                                 System.out.println("");
                             } else {
                                 vehicleList.get(test).setVehicleModel("DELETED");
-                                vehicleList.get(test).setVehicleType(null);
-                                vehicleList.get(test).setVehicleWheel(null);
+                                vehicleList.get(test).setVehicleType("");
+                                vehicleList.get(test).setVehicleWheel("");
                                 break;
                             }
                         } catch (NumberFormatException e) {
