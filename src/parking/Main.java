@@ -17,10 +17,9 @@ public class Main {
     int currentid = 0;
 
     private static ArrayList<Vehicle> vehicleList = new ArrayList();
-    
+
     private static ArrayList<Parking> parkingList = new ArrayList();
-    
-    
+
     public static boolean checkVehicle(int i) {
         if (vehicleList.get(i).getVehicleModel() == "DELETED") {
             return true;
@@ -28,11 +27,6 @@ public class Main {
         return false;
     }
 
-    public static void addParkingSlot() {
-        Parking park = new Parking(null, null, null);
-        parkingList.add(park);
-    }
-    
     public static void addVehicle(String a, String b, String c) {
         Vehicle vhc = new Vehicle(a, b, c);
         vehicleList.add(vhc);
@@ -53,6 +47,22 @@ public class Main {
         System.out.println("");
     }
 
+    public static boolean checkParking(int i) {
+        if(parkingList.get(i).occupied) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static void addParkingSlot() {
+        Parking park = new Parking(null, null, null);
+        parkingList.add(park);
+    }
+
+    public static void selectParking(int i) {
+        System.out.println("");
+    }
+    
     // Main Class
     public static void main(String[] args) {
 
@@ -76,8 +86,10 @@ public class Main {
                     System.out.println("vhc_add: Create new vehicle model.");
                     System.out.println("vhc_del: Delete a vehicle model.");
                     System.out.println("park_list: Show parking list.");
+                    System.out.println("park_slot: Add empty parking slot.");
                     System.out.println("park_add: Add customer into a parking slot.");
                     System.out.println("park_del: Remove customer from parking slot.");
+                    System.out.println("park_edit: Edit a customer in parking slot.");
                     System.out.println("");
                     break;
                 case "credits":
@@ -136,6 +148,9 @@ public class Main {
                     vehicleList.get(id).setVehicleModel("DELETED");
                     vehicleList.get(id).setVehicleType(null);
                     vehicleList.get(id).setVehicleWheel(null);
+                    break;
+                case "park_list":
+
                     break;
             }
             System.out.print("Command: ");
