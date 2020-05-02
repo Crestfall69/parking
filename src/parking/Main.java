@@ -21,7 +21,7 @@ public class Main {
     private static ArrayList<Parking> parkingList = new ArrayList();
 
     public static boolean checkVehicle(int i) {
-        if (vehicleList.get(i).getVehicleModel() == "DELETED") {
+        if ((vehicleList.get(i).getVehicleModel()).equals("DELETED")) {
             return true;
         }
         return false;
@@ -48,31 +48,31 @@ public class Main {
     }
 
     public static boolean checkParking(int i) {
-        if(parkingList.get(i).occupied) {
-            return true;
-        }
-        return false;
+        return parkingList.get(i).occupied;
     }
-    
+
     public static void addParkingSlot() {
-        Parking park = new Parking(null, null, null);
+        Parking park = new Parking(null, vehicleList.get(0), null);
         parkingList.add(park);
     }
 
     public static void selectParking(int i) {
-        System.out.format("%3d%40s%25s%15s", i, parkingList.get(i).getParkingName(), parkingList.get(i).getParkingVehicle().getVehicleModel(), parkingList.get(i).getParkingPlate());
+        System.out.format("%3d%10b%40s%25s%15s\n", i, checkParking(i), parkingList.get(i).getParkingName(), parkingList.get(i).getParkingVehicle().getVehicleModel(), parkingList.get(i).getParkingPlate());
     }
-    
+
     public static void listParking() {
-        System.out.format("%3d%40s%25s%15s", "id", "name", "vehicle", "plate");
+        System.out.format("%3s%10s%40s%25s%15s\n", "id", "occupied", "name", "vehicle", "plate");
         for (int i = 0; i < parkingList.size(); i++) {
             selectParking(i);
         }
         System.out.println("");
     }
-    
+
     // Main Class
     public static void main(String[] args) {
+
+        System.out.println("Added dummy empty vehicle.");
+        addVehicle("Empty", null, null);
 
         // CMD Bootleg 1.0 by Davey
         // Initial Creation
@@ -123,13 +123,12 @@ public class Main {
                     addVehicle(model, type, wheel);
 
                     break;
-                case "vhc_delete":
+                case "vhc_del":
 
                     // Start by listing vehicle.
                     listVehicle();
 
                     // Don't input anything stupid.
-                    int id = 0;
                     while (true) {
                         System.out.println("Select vehicle to delete.");
                         System.out.print("ID: ");
@@ -138,13 +137,23 @@ public class Main {
                         if (delete == null) {
                             break;
                         }
+
+                        if (delete.equals("0")) {
+                            System.out.println("Can't delete dummy vehicle!");
+                            System.out.println("");
+                            break;
+                        }
+
                         try {
-                            id = Integer.parseInt(delete);
+                            int test = Integer.parseInt(delete);
                             // Just to make sure the user is not a fucking idiot.
-                            if (checkVehicle(id)) {
+                            if (checkVehicle(test)) {
                                 System.out.println("Vehicle is already deleted!");
                                 System.out.println("");
                             } else {
+                                vehicleList.get(test).setVehicleModel("DELETED");
+                                vehicleList.get(test).setVehicleType(null);
+                                vehicleList.get(test).setVehicleWheel(null);
                                 break;
                             }
                         } catch (NumberFormatException e) {
@@ -153,12 +162,28 @@ public class Main {
                             System.out.println("");
                         }
                     }
-                    vehicleList.get(id).setVehicleModel("DELETED");
-                    vehicleList.get(id).setVehicleType(null);
-                    vehicleList.get(id).setVehicleWheel(null);
                     break;
                 case "park_list":
+                    listParking();
+                    break;
+                case "park_slot":
+                    System.out.println("Insert amount of parking slots to add.");
+                    System.out.print("Number: ");
+                    var num = scanner.nextLine();
 
+                    if (num == null) {
+                        break;
+                    }
+
+                    try {
+                        Integer.parseInt(num);
+                        addParkingSlot();
+                    } catch (NumberFormatException e) {
+                        System.out.println(e);
+                        System.out.println("Please input numbers only!");
+                        System.out.println("");
+                    }
+                    System.out.println("");
                     break;
             }
             System.out.print("Command: ");
