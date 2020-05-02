@@ -6,6 +6,7 @@ This is just a school project.
 In Netbeans project format.
 
 Assignment:
+
 Write a Java program with the following features:
 
 The program is a public garage that has 20 places for parking
