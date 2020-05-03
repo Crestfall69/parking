@@ -83,7 +83,14 @@ public class Main {
         parkingList.get(i).setParkingPlate(plate);
         parkingList.get(i).setParkingOccupied("true");
     }
-    
+
+    public static void delParking(int i) {
+        parkingList.get(i).setParkingName("");
+        parkingList.get(i).setParkingVehicle(vehicleList.get(0));
+        parkingList.get(i).setParkingPlate("");
+        parkingList.get(i).setParkingOccupied("false");
+    }
+
     // Main Class
     public static void main(String[] args) {
 
@@ -92,7 +99,7 @@ public class Main {
         addVehicle("Empty", "", "");
         System.out.println("Added dummy vehicle, used if vehicle isn't registered yet.");
         addVehicle("Dummy", "", "");
-        
+
         // CMD Bootleg 1.0 by Davey
         // Initial Creation
         Scanner scanner = new Scanner(System.in);
@@ -118,7 +125,7 @@ public class Main {
                     System.out.println("park_slot: Add empty parking slot.");
                     System.out.println("park_add: Add customer into a parking slot.");
                     System.out.println("park_del: Remove customer from parking slot.");
-                    System.out.println("park_edit: Edit a customer in parking slot.");
+                    System.out.println("BROKEN DO NOT USE park_edit: Edit a customer in parking slot.");
                     System.out.println("");
                     break;
                 // maybe i should credit stack overflow too
@@ -190,15 +197,19 @@ public class Main {
                                 vehicleList.get(test).setVehicleWheel("");
                                 break;
                             }
-                        // are you serious? NUMBERS
+                            // are you serious? NUMBERS
                         } catch (NumberFormatException e) {
                             System.out.println(e);
                             System.out.println("Please input numbers only!");
                             System.out.println("");
-                        // NO THEY DONT EXIST DUMBASS
+                            // NO THEY DONT EXIST DUMBASS
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println(e);
                             System.out.println("Vehicle doesn't exist!");
+                            System.out.println("");
+                        } catch (NullPointerException e) {
+                            System.out.println(e);
+                            System.out.println("Input is empty!");
                             System.out.println("");
                         }
                     }
@@ -222,7 +233,7 @@ public class Main {
                         for (int i = 0; i < Integer.parseInt(num); i++) {
                             addParkingSlot();
                         }
-                    // no just no
+                        // no just no
                     } catch (NumberFormatException e) {
                         System.out.println(e);
                         System.out.println("Please input numbers only!");
@@ -235,6 +246,8 @@ public class Main {
                     // need to init outside of while, where its mainly used
                     int id_vhc = 0;
                     int id_park = 0;
+                    boolean dummy = false;
+                    String plate = "";
                     // input
                     System.out.println("Insert customer name. Type 'cancel' to cancel.");
                     System.out.print("Name: ");
@@ -259,6 +272,8 @@ public class Main {
                         if (vhcid.equals("0")) {
                             System.out.println("Can't use 'Empty' as vehicle!");
                             System.out.println("Using dummy vehicle instead.");
+                            vhcid = "1";
+                            dummy = true;
                         }
                         try {
                             id_vhc = Integer.parseInt(vhcid);
@@ -267,19 +282,22 @@ public class Main {
                             System.out.println(e);
                             System.out.println("Please input numbers only!");
                             System.out.println("");
-                        // i gave up
+                            // i gave up
                         } catch (NullPointerException e) {
                             vhcid = "1";
+                            dummy = true;
                             break;
-                        }                        
+                        }
                     }
-                    // input plate serial here bro
-                    System.out.println("Insert plate serial. Type 'cancel' to cancel.");
-                    System.out.print("Plate: ");
-                    String plate = scanner.nextLine();
-                    // cancel if you want
-                    if (plate.equals("cancel")) {
-                        break;
+                    // serial plate will be skipped if using dummy vehicle
+                    if (dummy == false) {
+                        System.out.println("Insert plate serial. Type 'cancel' to cancel.");
+                        System.out.print("Plate: ");
+                        plate = scanner.nextLine();
+                        // cancel if you want
+                        if (plate.equals("cancel")) {
+                            break;
+                        }
                     }
                     // list parking you goldfish
                     listParking();
@@ -292,7 +310,7 @@ public class Main {
                         }
                         // big brain energy by davey
                         if (parkid.equals("next")) {
-                            for (int i = 0; i < parkingList.size(); i ++) {
+                            for (int i = 0; i < parkingList.size(); i++) {
                                 if (!parkingList.get(i).occupied) {
                                     parkid = String.valueOf(i);
                                     break;
@@ -302,15 +320,19 @@ public class Main {
                         try {
                             id_park = Integer.parseInt(parkid);
                             break;
-                        // input NUMBERS
+                            // input NUMBERS
                         } catch (NumberFormatException e) {
                             System.out.println(e);
                             System.out.println("Please input numbers only!");
                             System.out.println("");
-                        // EMPTY IS NOT ACCEPTABLE
+                            // EMPTY IS NOT ACCEPTABLE
                         } catch (NullPointerException e) {
                             System.out.println(e);
                             System.out.println("Input is empty!");
+                            System.out.println("");
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(e);
+                            System.out.println("Slot doesn't exist!");
                             System.out.println("");
                         }
                     }
@@ -321,9 +343,102 @@ public class Main {
                     System.out.println("");
                     break;
                 case "park_del":
+                    // next time i will stop doing this i promise
+                    int idp = 0;
+                    // list all parking
                     listParking();
-                    
-                    
+                    while (true) {
+                        System.out.println("Choose parking slot to remove customer from. Type 'cancel' to cancel.");
+                        System.out.print("ID: ");
+                        var parkid = scanner.nextLine();
+                        // cancel stuff
+                        if (parkid.equals("cancel")) {
+                            break;
+                        }
+                        if (!checkParking(Integer.parseInt(parkid))) {
+                            System.out.println("Empty parking slot!");
+                            break;
+                        }
+                        // delete this (i)
+                        try {
+                            idp = Integer.parseInt(parkid);
+                            delParking(idp);
+                            break;
+                            // if you dare input anything other than numbers
+                        } catch (NumberFormatException e) {
+                            System.out.println(e);
+                            System.out.println("Please input numbers only!");
+                            System.out.println("");
+                            // nullpo GAH
+                        } catch (NullPointerException e) {
+                            System.out.println(e);
+                            System.out.println("Input is empty!");
+                            System.out.println("");
+                            // the slot is a lie
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(e);
+                            System.out.println("Slot doesn't exist!");
+                            System.out.println("");
+                        }
+                    }
+                    break;
+                case "park_edit":
+                    System.out.println("BROKEN PLEASE IGNORE");
+//                    // start by showing list of parking
+//                    listParking();
+//                    // retarded var name i know
+//                    String nama;
+//                    // then ask which to edit
+//                    while (true) {
+//                        System.out.println("Choose which parking slot to edit. Type 'cancel' to cancel.");
+//                        System.out.print("ID: ");
+//                        var parkid = scanner.nextLine();
+//                        if (parkid.equals("cancel")) {
+//                            break;
+//                        }
+//                        if (!checkParking(Integer.parseInt(parkid))) {
+//                            System.out.println("Empty parking slot!");
+//                            break;
+//                        }
+//                        try {
+//                            selectParking(Integer.parseInt(parkid));
+//                            break;
+//                            // if you dare input anything other than numbers
+//                        } catch (NumberFormatException e) {
+//                            System.out.println(e);
+//                            System.out.println("Please input numbers only!");
+//                            System.out.println("");
+//                            // nullpo GAH
+//                        } catch (NullPointerException e) {
+//                            System.out.println(e);
+//                            System.out.println("Input is empty!");
+//                            System.out.println("");
+//                            // the slot is a lie
+//                        } catch (IndexOutOfBoundsException e) {
+//                            System.out.println(e);
+//                            System.out.println("Slot doesn't exist!");
+//                            System.out.println("");
+//                        }
+//                        System.out.println("Insert customer name. Type 'cancel' to cancel. Type 'nochange' to use previous value.");
+//                        System.out.print("Name: ");
+//                        var parkname = scanner.nextLine();
+//                        if (parkname.equals("cancel")) {
+//                            break;
+//                        }
+//                        if (!parkname.equals("nochange")) {
+//                            nama = parkname;
+//                        }
+//                        listVehicle();
+//                        System.out.println("Select vehicle to change to. Type 'cancel' to cancel. Type 'nochange' to use previous value.");
+//                        System.out.print("ID: ");
+//                        var vhcid = scanner.nextLine();
+//                        if (vhcid.equals("cancel")) {
+//                            break;
+//                        }
+//                        if (!vhcid.equals("nochange")) {
+//                            nama = parkname;
+//                        }
+//                    }
                     break;
             }
             System.out.print("Command: ");
