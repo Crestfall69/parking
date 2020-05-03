@@ -110,15 +110,24 @@ public class Main {
                     listVehicle();
                     break;
                 case "vhc_add":
-                    System.out.println("Insert vehicle model name (ex: Toyota Trueno AE86).");
+                    System.out.println("Insert vehicle model name (ex: Toyota Trueno AE86). Type 'cancel' to cancel.");
                     System.out.print("Vehicle Model: ");
                     var model = scanner.nextLine();
-                    System.out.println("Insert vehicle type (ex: truck, sedan, suv, motorcycle).");
+                    if (model.equals("cancel")) {
+                            break;
+                        }
+                    System.out.println("Insert vehicle type (ex: truck, sedan, suv, motorcycle). Type 'cancel' to cancel.");
                     System.out.print("Vehicle Type: ");
                     var type = scanner.nextLine();
-                    System.out.println("Insert amount of wheels on vehicle.");
+                    if (type.equals("cancel")) {
+                            break;
+                        }
+                    System.out.println("Insert amount of wheels on vehicle. Type 'cancel' to cancel.");
                     System.out.print("Vehicle Wheels: ");
                     var wheel = scanner.nextLine();
+                    if (wheel.equals("cancel")) {
+                            break;
+                        }
 
                     addVehicle(model, type, wheel);
 
@@ -171,13 +180,13 @@ public class Main {
                     listParking();
                     break;
                 case "park_slot":
-                    System.out.println("Insert amount of parking slots to add.");
+                    System.out.println("Insert amount of parking slots to add. Type 'cancel' to cancel.");
                     System.out.print("Number: ");
                     var num = scanner.nextLine();
 
-                    if (num == null) {
-                        break;
-                    }
+                    if (num.equals("cancel")) {
+                            break;
+                        }
 
                     try {
                         Integer.parseInt(num);
