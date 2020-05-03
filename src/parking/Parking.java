@@ -27,7 +27,7 @@ public class Parking {
     }
 
     public void setParkingVehicle(Vehicle x) {
-        vhc = x;
+        vehicle = x;
     }
 
     public void setParkingPlate(String x) {
@@ -43,7 +43,7 @@ public class Parking {
     }
 
     public Vehicle getParkingVehicle() {
-        return vhc;
+        return vehicle;
     }
 
     public String getParkingPlate() {
@@ -52,13 +52,13 @@ public class Parking {
 
     boolean occupied;
     String name;
-    Vehicle vhc;
+    Vehicle vehicle;
     String plate;
 
-    public Parking(String a, Vehicle b, String c) {
+    public Parking(String nam, Vehicle vhc, String pla) {
         occupied = false;
-        name = a;
-        vhc = b;
-        plate = c;
+        name = nam;
+        vehicle = vhc;
+        plate = pla;
     }
 }

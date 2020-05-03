@@ -39,9 +39,9 @@ public class Vehicle {
     private String type;
     private String wheel;
 
-    public Vehicle(String a, String b, String c) {
-        model = a;
-        type = b;
-        wheel = c;
+    public Vehicle(String mod, String typ, String whe) {
+        model = mod;
+        type = typ;
+        wheel = whe;
     }
 }
