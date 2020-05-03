@@ -68,6 +68,13 @@ public class Main {
         System.out.println("");
     }
 
+    public static void addParking(int i, String a, Vehicle b, String c) {
+        parkingList.get(i).setParkingName(a);
+        parkingList.get(i).setParkingVehicle(b);
+        parkingList.get(i).setParkingPlate(c);
+        parkingList.get(i).setParkingOccupied("true");
+    }
+    
     // Main Class
     public static void main(String[] args) {
 
@@ -114,21 +121,20 @@ public class Main {
                     System.out.print("Vehicle Model: ");
                     var model = scanner.nextLine();
                     if (model.equals("cancel")) {
-                            break;
-                        }
+                        break;
+                    }
                     System.out.println("Insert vehicle type (ex: truck, sedan, suv, motorcycle). Type 'cancel' to cancel.");
                     System.out.print("Vehicle Type: ");
                     var type = scanner.nextLine();
                     if (type.equals("cancel")) {
-                            break;
-                        }
+                        break;
+                    }
                     System.out.println("Insert amount of wheels on vehicle. Type 'cancel' to cancel.");
                     System.out.print("Vehicle Wheels: ");
                     var wheel = scanner.nextLine();
                     if (wheel.equals("cancel")) {
-                            break;
-                        }
-
+                        break;
+                    }
                     addVehicle(model, type, wheel);
 
                     break;
@@ -185,14 +191,14 @@ public class Main {
                     var num = scanner.nextLine();
 
                     if (num.equals("cancel")) {
-                            break;
-                        }
+                        break;
+                    }
 
                     try {
                         Integer.parseInt(num);
-                        for (int i = 0; i < Integer.parseInt(num);i++) {
+                        for (int i = 0; i < Integer.parseInt(num); i++) {
                             addParkingSlot();
-                        }                        
+                        }
                     } catch (NumberFormatException e) {
                         System.out.println(e);
                         System.out.println("Please input numbers only!");
@@ -200,23 +206,76 @@ public class Main {
                     }
                     System.out.println("");
                     break;
-//                case "park_add":
-//                    System.out.println("Insert customer name.");
-//                    System.out.print("Name: ");
-//                    String name = scanner.nextLine();
-//                    listVehicle();
-//                    while (true) {
-//                    System.out.println("Choose customer vehicle.");
-//                    System.out.print("ID: ");
-//                    var vhcid = scanner.nextLine();
-//                    
-//                    if (vhcid == null) {
-//                        vhcid = "0";
-//                    }
-//                    
-//                    
-//                    }
-//                    break;
+                case "park_add":
+                    int id_vhc = 0;
+                    int id_park = 0;
+                    System.out.println("Insert customer name. Type 'cancel' to cancel.");
+                    System.out.print("Name: ");
+                    String name = scanner.nextLine();
+                    if (name.equals("cancel")) {
+                        break;
+                    }
+                    listVehicle();
+                    while (true) {
+                        System.out.println("Choose customer vehicle. Type 'cancel' to cancel.");
+                        System.out.println("If vehicle model is not registered, just type '0'");
+                        System.out.println("and edit customer data later.");
+                        System.out.print("ID: ");
+                        var vhcid = scanner.nextLine();
+                        if (vhcid.equals("cancel")) {
+                            break;
+                        }
+                        try {
+                            id_vhc = Integer.parseInt(vhcid);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println(e);
+                            System.out.println("Please input numbers only!");
+                            System.out.println("");
+                        } catch (NullPointerException e) {
+                            vhcid = "0";
+                        }                        
+                    }
+                    System.out.println("Insert plate serial. Type 'cancel' to cancel.");
+                    System.out.print("Plate: ");
+                    String plate = scanner.nextLine();
+                    if (plate.equals("cancel")) {
+                        break;
+                    }
+                    listParking();
+                    while (true) {
+                        System.out.println("Choose parking slot. Type 'cancel' to cancel. Type 'next' to automatically find empty slots.");
+                        System.out.print("ID: ");
+                        var parkid = scanner.nextLine();
+                        if (parkid.equals("cancel")) {
+                            break;
+                        }
+                        if (parkid.equals("next")) {
+                            for (int i = 0; i < parkingList.size(); i ++) {
+                                if (!parkingList.get(i).occupied) {
+                                    parkid = String.valueOf(i);
+                                    break;
+                                }
+                            }
+                        }
+                        try {
+                            id_park = Integer.parseInt(parkid);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println(e);
+                            System.out.println("Please input numbers only!");
+                            System.out.println("");
+                        } catch (NullPointerException e) {
+                            System.out.println(e);
+                            System.out.println("Input is empty!");
+                            System.out.println("");
+                        }
+                    }
+                    addParking(id_park, name, vehicleList.get(id_vhc), plate);
+                    System.out.println("Succesfully added!");
+                    selectParking(id_park);
+                    System.out.println("");
+                    break;
             }
             System.out.print("Command: ");
             command = scanner.nextLine();
