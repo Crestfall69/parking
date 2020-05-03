@@ -130,11 +130,11 @@ public class Main {
 
                     // Don't input anything stupid.
                     while (true) {
-                        System.out.println("Select vehicle to delete.");
+                        System.out.println("Select vehicle to delete. Type 'cancel' to cancel.");
                         System.out.print("ID: ");
                         var delete = scanner.nextLine();
 
-                        if (delete == null) {
+                        if (delete.equals("cancel")) {
                             break;
                         }
 
@@ -159,6 +159,10 @@ public class Main {
                         } catch (NumberFormatException e) {
                             System.out.println(e);
                             System.out.println("Please input numbers only!");
+                            System.out.println("");
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(e);
+                            System.out.println("Vehicle doesn't exist!");
                             System.out.println("");
                         }
                     }
@@ -185,6 +189,23 @@ public class Main {
                     }
                     System.out.println("");
                     break;
+//                case "park_add":
+//                    System.out.println("Insert customer name.");
+//                    System.out.print("Name: ");
+//                    String name = scanner.nextLine();
+//                    listVehicle();
+//                    while (true) {
+//                    System.out.println("Choose customer vehicle.");
+//                    System.out.print("ID: ");
+//                    var vhcid = scanner.nextLine();
+//                    
+//                    if (vhcid == null) {
+//                        vhcid = "0";
+//                    }
+//                    
+//                    
+//                    }
+//                    break;
             }
             System.out.print("Command: ");
             command = scanner.nextLine();
