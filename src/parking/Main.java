@@ -190,7 +190,9 @@ public class Main {
 
                     try {
                         Integer.parseInt(num);
-                        addParkingSlot();
+                        for (int i = 0; i < Integer.parseInt(num);i++) {
+                            addParkingSlot();
+                        }                        
                     } catch (NumberFormatException e) {
                         System.out.println(e);
                         System.out.println("Please input numbers only!");
