@@ -22,7 +22,7 @@ public class Main {
 
     // checks if a Vehicle in vehicleList is classified as deleted (by looking at the string)
     public static boolean checkVehicle(int i) {
-        if ((vehicleList.get(i).getVehicleModel()).equals("DELETED")) {
+        if ((vehicleList.get(i).getVehicleModel()).equalsIgnoreCase("DELETED")) {
             return true;
         }
         return false;
@@ -145,21 +145,21 @@ public class Main {
                     System.out.println("Insert vehicle model name (ex: Toyota Trueno AE86). Type 'cancel' to cancel.");
                     System.out.print("Vehicle Model: ");
                     var model = scanner.nextLine();
-                    if (model.equals("cancel")) {
+                    if (model.equalsIgnoreCase("cancel")) {
                         break;
                     }
                     // vehicle type
                     System.out.println("Insert vehicle type (ex: truck, sedan, suv, motorcycle). Type 'cancel' to cancel.");
                     System.out.print("Vehicle Type: ");
                     var type = scanner.nextLine();
-                    if (type.equals("cancel")) {
+                    if (type.equalsIgnoreCase("cancel")) {
                         break;
                     }
                     // wheels on vehicle
                     System.out.println("Insert amount of wheels on vehicle. Type 'cancel' to cancel.");
                     System.out.print("Vehicle Wheels: ");
                     var wheel = scanner.nextLine();
-                    if (wheel.equals("cancel")) {
+                    if (wheel.equalsIgnoreCase("cancel")) {
                         break;
                     }
                     // bam were done
@@ -175,11 +175,11 @@ public class Main {
                         System.out.print("ID: ");
                         var delete = scanner.nextLine();
                         // if user wants to cancel
-                        if (delete.equals("cancel")) {
+                        if (delete.equalsIgnoreCase("cancel")) {
                             break;
                         }
                         // NO you cant delete this
-                        if (delete.equals("0") || delete.equals("1")) {
+                        if (delete.equalsIgnoreCase("0") || delete.equalsIgnoreCase("1")) {
                             System.out.println("Can't delete dummy vehicle!");
                             System.out.println("");
                             break;
@@ -224,7 +224,7 @@ public class Main {
                     System.out.print("Number: ");
                     var num = scanner.nextLine();
                     // wanna cancel?
-                    if (num.equals("cancel")) {
+                    if (num.equalsIgnoreCase("cancel")) {
                         break;
                     }
                     // loop through the amount of i, addParkingSlot continuously
@@ -253,7 +253,7 @@ public class Main {
                     System.out.print("Name: ");
                     String name = scanner.nextLine();
                     // cancel? okie dokie
-                    if (name.equals("cancel")) {
+                    if (name.equalsIgnoreCase("cancel")) {
                         break;
                     }
                     // list vehicle, cuz human memory is same as goldfish
@@ -265,11 +265,11 @@ public class Main {
                         System.out.print("ID: ");
                         var vhcid = scanner.nextLine();
                         // cancel ok
-                        if (vhcid.equals("cancel")) {
+                        if (vhcid.equalsIgnoreCase("cancel")) {
                             break;
                         }
                         // please use "1" not "0"
-                        if (vhcid.equals("0")) {
+                        if (vhcid.equalsIgnoreCase("0")) {
                             System.out.println("Can't use 'Empty' as vehicle!");
                             System.out.println("Using dummy vehicle instead.");
                             vhcid = "1";
@@ -295,7 +295,7 @@ public class Main {
                         System.out.print("Plate: ");
                         plate = scanner.nextLine();
                         // cancel if you want
-                        if (plate.equals("cancel")) {
+                        if (plate.equalsIgnoreCase("cancel")) {
                             break;
                         }
                     }
@@ -305,11 +305,11 @@ public class Main {
                         System.out.println("Choose parking slot. Type 'cancel' to cancel. Type 'next' to automatically find empty slots.");
                         System.out.print("ID: ");
                         var parkid = scanner.nextLine();
-                        if (parkid.equals("cancel")) {
+                        if (parkid.equalsIgnoreCase("cancel")) {
                             break;
                         }
                         // big brain energy by davey
-                        if (parkid.equals("next")) {
+                        if (parkid.equalsIgnoreCase("next")) {
                             for (int i = 0; i < parkingList.size(); i++) {
                                 if (!parkingList.get(i).occupied) {
                                     parkid = String.valueOf(i);
@@ -352,7 +352,7 @@ public class Main {
                         System.out.print("ID: ");
                         var parkid = scanner.nextLine();
                         // cancel stuff
-                        if (parkid.equals("cancel")) {
+                        if (parkid.equalsIgnoreCase("cancel")) {
                             break;
                         }
                         if (!checkParking(Integer.parseInt(parkid))) {
@@ -393,7 +393,7 @@ public class Main {
 //                        System.out.println("Choose which parking slot to edit. Type 'cancel' to cancel.");
 //                        System.out.print("ID: ");
 //                        var parkid = scanner.nextLine();
-//                        if (parkid.equals("cancel")) {
+//                        if (parkid.equalsIgnoreCase("cancel")) {
 //                            break;
 //                        }
 //                        if (!checkParking(Integer.parseInt(parkid))) {
@@ -422,20 +422,20 @@ public class Main {
 //                        System.out.println("Insert customer name. Type 'cancel' to cancel. Type 'nochange' to use previous value.");
 //                        System.out.print("Name: ");
 //                        var parkname = scanner.nextLine();
-//                        if (parkname.equals("cancel")) {
+//                        if (parkname.equalsIgnoreCase("cancel")) {
 //                            break;
 //                        }
-//                        if (!parkname.equals("nochange")) {
+//                        if (!parkname.equalsIgnoreCase("nochange")) {
 //                            nama = parkname;
 //                        }
 //                        listVehicle();
 //                        System.out.println("Select vehicle to change to. Type 'cancel' to cancel. Type 'nochange' to use previous value.");
 //                        System.out.print("ID: ");
 //                        var vhcid = scanner.nextLine();
-//                        if (vhcid.equals("cancel")) {
+//                        if (vhcid.equalsIgnoreCase("cancel")) {
 //                            break;
 //                        }
-//                        if (!vhcid.equals("nochange")) {
+//                        if (!vhcid.equalsIgnoreCase("nochange")) {
 //                            nama = parkname;
 //                        }
 //                    }
